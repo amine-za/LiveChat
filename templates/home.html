@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Room</title>
+    {% comment %} <link rel="shortcut icon" href="{% static 'favicon.ico' %}"> {% endcomment %}
+    <title>Enter Chat</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,17 +46,24 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Enter Room</h2>
+        <h2>Enter Contact</h2>
         <form action="" method="POST">
             {% csrf_token %}
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             
-            <label for="room">Room Name:</label>
-            <input type="text" id="room" name="room" required>
+            <label for="Contact">Contact Name:</label>
+            <input type="text" id="Contact" name="Contact" required>
             
-            <input type="submit" value="Enter Room">
+            <input type="submit" value="Enter Chat">
         </form>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </body>
 </html>

@@ -36,9 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # "daphne",
+    "daphne",
     'django.contrib.staticfiles',
-    # "channels",
+    "channels",
     "chat"
 ]
 
@@ -70,6 +70,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'LiveChat.asgi.application'
 WSGI_APPLICATION = 'LiveChat.wsgi.application'
 
 
@@ -124,3 +125,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+ 

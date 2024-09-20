@@ -2,16 +2,17 @@ from django.db import models
 
 # Create your models here.
 
-class Room(models.Model):
-    room_name = models.CharField(max_length=50)
+class Contact(models.Model):
+    contact_name = models.CharField(max_length=50)
     
     def __str__(self):
-        return self.room_name
+        return self.contact_name
     
 class Message(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    receiver = models.CharField(max_length=50)
     sender = models.CharField(max_length=50)
     message = models.TextField()
+    # time_stamp = models.DateField(auto_now_add=True)
     
     def __str__(self):
-        return f"{str(self.room)} - {self.sender}"
+        return f"{str(self.receiver)} - {self.sender}"
