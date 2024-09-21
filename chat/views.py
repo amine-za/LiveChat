@@ -28,6 +28,7 @@ def HomeView(request):
     return render(request, "home.html")
         
 
+<<<<<<< HEAD
 def ChatView(request, contact_name, username):
     if request.method == 'POST' :
         new_message = request.POST['message_input']
@@ -47,5 +48,17 @@ def ChatView(request, contact_name, username):
         "messages": get_messages,
         "user": userObj,
         "contact": contactObj
+=======
+def RoomView(request, room_name, username):
+    try:
+        RoomModel = Room.objects.get(room_name=room_name)
+    except Room.DoesNotExist:
+        return (HttpResponse("Room not found", status=404))
+    get_messages = Message.objects.filter(room=RoomModel)
+    context = {
+        "messages": get_messages,
+        "user": username,
+        "room_name": RoomModel
+>>>>>>> f9d18dff2f4bf56ee7940e54f4f5135ea41e6319
     }
     return render(request, "ChatPage.html", context)
