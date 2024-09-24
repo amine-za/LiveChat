@@ -83,11 +83,11 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            {{contact.username}}
+            {{contact}}
         </div>
         <div class="chat-box" id="chat-box">
             {% for message in messages %}
-                {% if message.sender.lower == user.username.lower %}
+                {% if message.sender.lower == user.lower %}
                     <!-- Sent message by user -->
                     <div class="message sent">{{ message.message }}</div>
                 {% else %}
@@ -100,50 +100,54 @@
             <form action="" id="msg-form" method="post">
                 {% csrf_token %}
                 <input   id="message_input" name="message_input" placeholder="Type a message..." type="text">
-                <button type="submit"> &#10003;</button>
-                {% comment %} <button onclick="print00()" id="button_clc">Send</button> {% endcomment %}
-                {% comment %} <input type="submit" onclick="sendMessage()" value="Send" id="button_clc"> {% endcomment %}
-                {% comment %} <input type="submit" onclick="print00()" value="Send" id="button_clc"> {% endcomment %}
-                {% comment %} <button type="submit" > Send &#10003;</button> {% endcomment %}
+                <button type="submit"> submit</button>
             </form>
         </div>
     <script>
-        const socketURL = `ws://${window.location.host}/ws/messages/{{contact}}/`;
+        const socketURL = `ws://${window.location.host}/ws/messages/{{room_id}}/`;
         console.log("Establishing Socket Connection")
         const socket = new WebSocket(socketURL)
-        const button_clc = document.getElementById("button_clc")
-        let message_sent = document.getElementById("message_input")
-        button_clc.addEventListener("click", function(event){
-            event.preventDefault()
-            console.log(message_sent.value)
-            socket.send(
-                JSON.stringify({
-                    message:message_sent.value,
-                    contact: "{{contact}}",
-                    sender: "{{user}}"
-                })
-            )
-        })
-        {% comment %} function print00()
-            console.log("the netherlands")
-        function sendMessage() {
-            console.log("the netherlands")
-            const messageInput = document.getElementById('message_input');
-            console.log("Establishing Socket Connection")
-            const messageText = messageInput.value.trim();
+        
+        const button_clc = document.getElementById("msg-form")
+        const messageInput = document.getElementById("message_input")
+        const chats_div = document.getElementById("chat-box")
+        
+        button_clc.addEventListener("submit", function(event){ // the section when click submit buttom to send message
+            event.preventDefault();
+            const message_sent = messageInput.value.trim();
+            if (message_sent) {
+                socket.send(JSON.stringify({
+                    message: message_sent,
+                    receiver: "{{contact}}",
+                    user: "{{user}}",
+                }));
+            messageInput.value = '';
+            chats_div.innerHTML += `<div class="message sent">
+                <div class="msg-body">${message_sent}</div>
+            </div>`;
+            scrollToBottom();
+            }
+        });
+  
+        socket.addEventListener("message", (e) => { // when received the message onMessage()
+
+            const data = JSON.parse(e.data);
+            const sender = data?.message.user;
+            const message = data.message;
             
-            if (messageText === '') return;
-            
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', 'sent');
-            messageElement.textContent = messageText;
-            
-            const chatBox = document.getElementById('chat-box');
-            chatBox.appendChild(messageElement);
-            
-            messageInput.value = ''; 
-            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
-        } {% endcomment %}
+            if (sender !== "{{user}}" ) {
+                // Message from the contact (receiver)
+                chats_div.innerHTML += `<div class="message received">
+                    <div class="msg-body">${message.message}</div>
+                </div>`;
+            }
+            scrollToBottom();
+        });
+
+        // Scroll to the bottom function
+        const scrollToBottom = () => {
+            chats_div.scrollTop = chats_div.scrollHeight;
+        }
     </script>
 </body>
 </html>

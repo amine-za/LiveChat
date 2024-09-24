@@ -1,7 +1,7 @@
-
 const mainDiv = document.getElementById('main')
 console.log(mainDiv)
 let res
+
 const fun = async(name)=>{
     const data = await fetch(`/${name}.html`)
     if(data.ok)
