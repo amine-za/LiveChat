@@ -17,8 +17,7 @@ class Message(models.Model):
     receiver = models.CharField(max_length=50)
     sender = models.CharField(max_length=50)
     message = models.TextField()
-    time_stamp = models.DateField(auto_now_add=True)
-    
-    
+    time_stamp = models.DateField()
+
     def __str__(self):
         return f"{str(self.receiver)} - {self.sender}"
