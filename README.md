@@ -118,10 +118,6 @@ Contributions to the project are welcome! Feel free to:
 
 If you encounter any issues or have suggestions, please open an issue.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgements
 
 - Django framework
