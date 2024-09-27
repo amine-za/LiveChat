@@ -1,5 +1,5 @@
-<img width="358" alt="Screen Shot 2024-09-27 at 3 35 21 PM" src="https://github.com/user-attachments/assets/43af8e1f-5fd3-4345-8015-69b7094a27d3">
-<img width="423" alt="Screen Shot 2024-09-27 at 12 52 32 PM" src="https://github.com/user-attachments/assets/5fdbfba4-5874-4080-90a7-bcdfd64ff03f">
+<img width="405" alt="login_chat" src="https://github.com/user-attachments/assets/f6217880-06a8-4a2c-ac2d-aa96b61849e1">
+<img width="405" alt="chat_pic" src="https://github.com/user-attachments/assets/7524e303-2249-4a25-b5be-39b483c0aaf0">
 
 # Live Chat Application
 
