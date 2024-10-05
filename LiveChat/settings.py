@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "daphne",
     'django.contrib.staticfiles',
     "channels",
-    "chat"
+    "chat",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [

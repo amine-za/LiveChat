@@ -35,20 +35,6 @@ def HomeView(request):
     return render(request, "HomePage.html")
         
 def ChatView(request, contact_name, username, roomId):
-    # if request.method == 'POST' :
-    #     new_message = request.POST['message_input']
-    #     # print ("the new message is:", new_message)
-    #     tmp = Message.objects.create(receiver=contact_name, sender=username, message=new_message)
-    #     print("the new message is: ", new_message, "||", )
-    #     return redirect("chat", contact_name=contact_name, username=username)
-    # try:
-    #     contactObj = User.objects.get(username__iexact=contact_name)
-    # except User.DoesNotExist:
-    #     return HttpResponse("Contact not found", status=404)
-    # try:
-    #     userObj = User.objects.get(username__iexact=username)
-    # except User.DoesNotExist:
-    #     return HttpResponse("Contact not found", status=404)
     get_messages = Message.objects.filter(Q(receiver=username, sender=contact_name) | Q(receiver=contact_name, sender=username))
     context = {
         "messages": get_messages,
